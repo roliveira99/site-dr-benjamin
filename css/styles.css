@@ -434,28 +434,20 @@ main {
   flex-shrink: 0;
 }
 
-.brand-logo-wrap {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--gold);
+.brand-logo-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
   flex-shrink: 0;
-  background: var(--green-logo);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  background: var(--white);
 }
 
-.brand-logo-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 23%;
-  transform: scale(2.55);
-  transform-origin: center 23%;
-  display: block;
-  pointer-events: none;
+.brand-logo-image--footer {
+  width: 96px;
+  height: 96px;
 }
 
 .brand-mark {
@@ -1600,15 +1592,9 @@ main {
     margin-inline: auto;
   }
 
-  .brand-logo-wrap {
-    width: 56px;
-    height: 56px;
-  }
-
   .brand-logo-image {
-    object-position: center 23%;
-    transform: scale(2.55);
-    transform-origin: center 23%;
+    width: 68px;
+    height: 68px;
   }
 }
 
