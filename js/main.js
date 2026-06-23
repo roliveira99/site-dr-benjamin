@@ -364,19 +364,15 @@
     track.addEventListener("scroll", updateDots, { passive: true });
   }
 
-  function getScrollOffset() {
+  function getHeaderScrollOffset() {
     const header = document.getElementById("site-header");
-    const headerHeight = header?.offsetHeight || 80;
-    const contactBar = document.querySelector(".contact-bar");
-    const contactVisible = contactBar && !header?.classList.contains("is-scrolled");
-    const contactHeight = contactVisible ? contactBar.offsetHeight : 0;
-    return headerHeight + contactHeight + 12;
+    return (header?.offsetHeight || 80) + 12;
   }
 
   function scrollToSection(target) {
     if (!target) return;
 
-    const top = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+    const top = target.getBoundingClientRect().top + window.scrollY - getHeaderScrollOffset();
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }
 
@@ -406,12 +402,12 @@
       closeMobileNav();
 
       if (href === "#inicio") {
+        document.dispatchEvent(new CustomEvent("site:navigate", { detail: { sectionId: "inicio" } }));
         window.scrollTo({ top: 0, behavior: "smooth" });
-        setActiveNavLink("inicio");
       } else {
         if (href === "#curriculo") openCurriculumPanel();
+        document.dispatchEvent(new CustomEvent("site:navigate", { detail: { sectionId: href.slice(1) } }));
         scrollToSection(target);
-        setActiveNavLink(href.slice(1));
       }
 
       history.pushState(null, "", href);
@@ -561,8 +557,7 @@
   function getActiveSectionId(sections) {
     if (!sections.length) return "";
 
-    const headerHeight = document.getElementById("site-header")?.offsetHeight || 80;
-    const triggerLine = headerHeight + 48;
+    const triggerLine = getHeaderScrollOffset() + 24;
     let current = sections[0].id;
 
     sections.forEach((sec) => {
@@ -585,12 +580,36 @@
     const links = [...document.querySelectorAll(".site-nav a")];
     if (!sections.length || !links.length) return;
 
-    const onScroll = () => {
+    let pendingSectionId = null;
+    let scrollTimer = null;
+
+    const syncActiveLink = () => {
+      if (pendingSectionId) {
+        setActiveNavLink(pendingSectionId);
+        return;
+      }
       setActiveNavLink(getActiveSectionId(sections));
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener(
+      "scroll",
+      () => {
+        syncActiveLink();
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          pendingSectionId = null;
+          syncActiveLink();
+        }, 150);
+      },
+      { passive: true }
+    );
+
+    document.addEventListener("site:navigate", (event) => {
+      pendingSectionId = event.detail?.sectionId || null;
+      if (pendingSectionId) setActiveNavLink(pendingSectionId);
+    });
+
+    syncActiveLink();
   }
 
   initAnalytics();
