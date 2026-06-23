@@ -40,7 +40,7 @@
           <a href="#medicina-chinesa">Medicina Chinesa</a>
           <a href="#procedimentos">Cirurgia</a>
           <a href="#hospitais">Onde atendo</a>
-          <a href="#curriculo">Currículo</a>
+          <a href="#curriculo">Formação</a>
           <a href="#contato">Contato</a>
         </nav>
         <div class="header-actions">
@@ -157,7 +157,7 @@
               no Campus Uniespirito — Instituto Médico Dr. Sérgio Felipe de Oliveira (Aclimação, São Paulo).
             </p>
             <div class="social-row">
-              <a class="btn btn-outline btn-sm" href="#curriculo">Ver currículo</a>
+              <a class="btn btn-outline btn-sm" href="#curriculo">Ver formação</a>
               <a class="btn btn-primary btn-sm" href="#hospitais">Onde atendo</a>
             </div>
           </div>
@@ -197,11 +197,24 @@
 
       <section class="section" id="curriculo">
         <div class="container">
-          <header class="section-header reveal">
-            <p class="section-eyebrow">Formação e experiência</p>
-            <h2>Currículo</h2>
-          </header>
-          <div class="curriculum-panel reveal" id="curriculum-content"></div>
+          <div class="curriculum-accordion reveal">
+            <button
+              class="curriculum-toggle"
+              type="button"
+              id="curriculum-toggle"
+              aria-expanded="false"
+              aria-controls="curriculum-body"
+            >
+              <span class="curriculum-toggle-label">
+                <span class="curriculum-toggle-title">Formação e experiência</span>
+                <span class="curriculum-toggle-hint">Clique na seta para ver o conteúdo</span>
+              </span>
+              <span class="curriculum-toggle-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="curriculum-panel curriculum-panel--collapsible" id="curriculum-body" hidden>
+              <div id="curriculum-content"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -257,7 +270,7 @@
           <a href="#medicina-chinesa">Medicina Chinesa</a>
           <a href="#procedimentos">Cirurgia</a>
           <a href="#hospitais">Onde atendo</a>
-          <a href="#curriculo">Currículo</a>
+          <a href="#curriculo">Formação</a>
           <a href="#contato">Contato</a>
           <a href="#" data-whatsapp-agendar>WhatsApp</a>
           <a href="https://www.instagram.com/dr.benjaminramos/" target="_blank" rel="noopener noreferrer" data-instagram-link>Instagram</a>

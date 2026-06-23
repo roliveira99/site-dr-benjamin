@@ -408,10 +408,41 @@
       if (href === "#inicio") {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
+        if (href === "#curriculo") openCurriculumPanel();
         scrollToSection(target);
       }
 
       history.pushState(null, "", href);
+    });
+  }
+
+  function openCurriculumPanel() {
+    const toggle = document.getElementById("curriculum-toggle");
+    const panel = document.getElementById("curriculum-body");
+    const hint = toggle?.querySelector(".curriculum-toggle-hint");
+    if (!toggle || !panel || toggle.getAttribute("aria-expanded") === "true") return;
+
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.classList.add("is-open");
+    panel.hidden = false;
+    if (hint) hint.textContent = "Clique na seta para ocultar";
+  }
+
+  function initCurriculumToggle() {
+    const toggle = document.getElementById("curriculum-toggle");
+    const panel = document.getElementById("curriculum-body");
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      const nextOpen = !open;
+
+      toggle.setAttribute("aria-expanded", String(nextOpen));
+      toggle.classList.toggle("is-open", nextOpen);
+      panel.hidden = !nextOpen;
+      toggle.querySelector(".curriculum-toggle-hint").textContent = nextOpen
+        ? "Clique na seta para ocultar"
+        : "Clique na seta para ver o conteúdo";
     });
   }
 
@@ -557,6 +588,7 @@
   initAboutPhotoCarousel();
   initCarousel();
   initAnchorNavigation();
+  initCurriculumToggle();
   initMenu();
   initReveal();
   initNavHighlight();

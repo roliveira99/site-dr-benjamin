@@ -233,6 +233,73 @@ main {
 }
 
 /* Curriculum */
+.curriculum-accordion {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.curriculum-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 24px 28px;
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.curriculum-toggle:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.curriculum-toggle.is-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+}
+
+.curriculum-toggle-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.curriculum-toggle-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 700;
+  color: var(--gold-dark);
+  line-height: 1.2;
+}
+
+.curriculum-toggle-hint {
+  font-size: 0.875rem;
+  color: var(--navy);
+  opacity: 0.72;
+}
+
+.curriculum-toggle-arrow {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid var(--gold-dark);
+  border-bottom: 2px solid var(--gold-dark);
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease);
+}
+
+.curriculum-toggle.is-open .curriculum-toggle-arrow {
+  transform: rotate(-135deg);
+}
+
 .curriculum-panel {
   padding: 40px;
   border-radius: var(--radius-lg);
@@ -240,6 +307,13 @@ main {
   border: 1.5px solid var(--border-gold);
   border-top: 4px solid var(--navy);
   box-shadow: var(--shadow-lg);
+}
+
+.curriculum-panel--collapsible {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
 }
 
 .cv-grid {
