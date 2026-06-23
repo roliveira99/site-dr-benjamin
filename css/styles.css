@@ -45,7 +45,19 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + var(--contact-bar-h));
+  scroll-padding-top: calc(var(--header-h) + var(--contact-bar-h) + 12px);
+}
+
+html:has(.site-header.is-scrolled) {
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+main section[id] {
+  scroll-margin-top: calc(var(--header-h) + var(--contact-bar-h) + 12px);
+}
+
+html:has(.site-header.is-scrolled) main section[id] {
+  scroll-margin-top: calc(var(--header-h) + 12px);
 }
 
 body {

@@ -364,6 +364,57 @@
     track.addEventListener("scroll", updateDots, { passive: true });
   }
 
+  function getScrollOffset() {
+    const header = document.getElementById("site-header");
+    const headerHeight = header?.offsetHeight || 80;
+    const contactBar = document.querySelector(".contact-bar");
+    const contactVisible = contactBar && !header?.classList.contains("is-scrolled");
+    const contactHeight = contactVisible ? contactBar.offsetHeight : 0;
+    return headerHeight + contactHeight + 12;
+  }
+
+  function scrollToSection(target) {
+    if (!target) return;
+
+    const top = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }
+
+  function closeMobileNav() {
+    const nav = document.getElementById("site-nav");
+    const toggle = document.getElementById("menu-toggle");
+    if (!nav?.classList.contains("is-open")) return;
+
+    nav.classList.remove("is-open");
+    toggle?.classList.remove("is-open");
+    toggle?.setAttribute("aria-expanded", "false");
+  }
+
+  function initAnchorNavigation() {
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      if (!href || href === "#") return;
+      if (link.hasAttribute("data-whatsapp-agendar")) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      event.preventDefault();
+      closeMobileNav();
+
+      if (href === "#inicio") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        scrollToSection(target);
+      }
+
+      history.pushState(null, "", href);
+    });
+  }
+
   function initCarousel() {
     const track = document.getElementById("video-track");
     const prev = document.getElementById("video-prev");
@@ -479,7 +530,7 @@
     const links = [...document.querySelectorAll(".site-nav a")];
 
     const onScroll = () => {
-      const y = window.scrollY + 120;
+      const y = window.scrollY + getScrollOffset();
       let current = sections[0]?.id;
       sections.forEach((sec) => {
         if (sec.offsetTop <= y) current = sec.id;
@@ -505,6 +556,7 @@
   wireInstagram();
   initAboutPhotoCarousel();
   initCarousel();
+  initAnchorNavigation();
   initMenu();
   initReveal();
   initNavHighlight();
