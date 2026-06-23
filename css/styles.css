@@ -433,12 +433,22 @@ main {
   flex-shrink: 0;
 }
 
+.brand-logo-image {
+  height: 76px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
 .brand-mark {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  display: block;
 }
 
 .brand-logo {
@@ -1572,6 +1582,10 @@ main {
   .hero-photo-wrap {
     max-width: 320px;
     margin-inline: auto;
+  }
+
+  .brand-logo-image {
+    height: 64px;
   }
 }
 
