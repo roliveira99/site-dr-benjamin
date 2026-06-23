@@ -442,17 +442,18 @@ main {
   border: 1px solid var(--gold-light);
   box-shadow: 0 0 0 1px rgba(192, 152, 80, 0.35);
   flex-shrink: 0;
-  background: var(--white);
+  background: var(--green-logo);
 }
 
 .brand-logo-image {
   position: absolute;
-  left: 50%;
-  top: 6%;
-  width: 235%;
-  max-width: none;
-  height: auto;
-  transform: translateX(-50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 23%;
+  transform: scale(2.55);
+  transform-origin: center 23%;
   display: block;
   pointer-events: none;
 }
@@ -1605,8 +1606,9 @@ main {
   }
 
   .brand-logo-image {
-    width: 240%;
-    top: 5%;
+    object-position: center 23%;
+    transform: scale(2.55);
+    transform-origin: center 23%;
   }
 }
 
