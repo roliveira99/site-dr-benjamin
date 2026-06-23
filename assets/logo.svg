@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Benjamin Ramos">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d9b162"/>
+      <stop offset="45%" stop-color="#c09850"/>
+      <stop offset="100%" stop-color="#ae8243"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="#0d3626"/>
+  <text x="60" y="80" text-anchor="middle" font-family="Montserrat, Arial Black, sans-serif" font-size="68" font-weight="900" fill="url(#gold)">B</text>
+</svg>
