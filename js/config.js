@@ -126,6 +126,24 @@ window.SITE_DR_BENJAMIN = {
       href: "mailto:bejaneto@gmail.com",
     },
   ],
+  aboutPhotos: [
+    {
+      src: "assets/images/dr-benjamin-consultorio.png",
+      alt: "Dr. Benjamin Ramos no consultório",
+    },
+    {
+      src: "assets/images/dr-benjamin-jaleco.png",
+      alt: "Dr. Benjamin Ramos — Coloproctologista",
+    },
+    {
+      src: "assets/images/dr-benjamin-pensativo.png",
+      alt: "Dr. Benjamin Ramos",
+    },
+    {
+      src: "assets/images/dr-benjamin-laptop.png",
+      alt: "Dr. Benjamin Ramos em atendimento",
+    },
+  ],
   videos: [
     {
       id: "dQw4w9WgXcQ",

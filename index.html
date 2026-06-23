@@ -114,8 +114,30 @@
       <section class="section" id="sobre">
         <div class="container about-grid">
           <div class="about-visual reveal">
-            <div class="about-image-wrap">
-              <img src="assets/images/tratamentos.jpg" alt="Dr. Benjamin Ramos — Tratamentos realizados" loading="lazy" />
+            <div class="about-image-wrap about-photo-carousel">
+              <div
+                class="about-photo-track"
+                id="about-photo-track"
+                tabindex="0"
+                aria-label="Fotos do Dr. Benjamin Ramos"
+              ></div>
+              <button
+                class="about-photo-nav about-photo-prev"
+                type="button"
+                id="about-photo-prev"
+                aria-label="Foto anterior"
+              >
+                ‹
+              </button>
+              <button
+                class="about-photo-nav about-photo-next"
+                type="button"
+                id="about-photo-next"
+                aria-label="Próxima foto"
+              >
+                ›
+              </button>
+              <div class="about-photo-dots" id="about-photo-dots"></div>
               <div class="about-overlay">
                 <h3>Dr. Benjamin Ramos</h3>
                 <p>Cirurgião Geral e Coloproctologista · São Paulo</p>

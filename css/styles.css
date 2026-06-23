@@ -868,6 +868,66 @@ main {
   box-shadow: var(--shadow-lg);
 }
 
+.about-photo-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.about-photo-track::-webkit-scrollbar {
+  display: none;
+}
+
+.about-photo-track img {
+  flex: 0 0 100%;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.about-photo-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-gold);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--gold-dark);
+  cursor: pointer;
+  font-size: 1.125rem;
+  line-height: 1;
+  transform: translateY(-50%);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.about-photo-nav:hover {
+  background: var(--white);
+  border-color: var(--gold);
+}
+
+.about-photo-prev {
+  left: 12px;
+}
+
+.about-photo-next {
+  right: 12px;
+}
+
+.about-photo-dots {
+  position: absolute;
+  bottom: 92px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
 .about-image-wrap img {
   width: 100%;
   aspect-ratio: 4 / 5;

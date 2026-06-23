@@ -312,6 +312,58 @@
     }
   }
 
+  function renderAboutPhotos() {
+    const track = document.getElementById("about-photo-track");
+    const dots = document.getElementById("about-photo-dots");
+    const photos = cfg.aboutPhotos || [];
+    if (!track || !photos.length) return;
+
+    track.innerHTML = photos
+      .map(
+        (photo) =>
+          `<img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt || "Dr. Benjamin Ramos")}" loading="lazy" />`
+      )
+      .join("");
+
+    if (dots) {
+      dots.innerHTML = photos
+        .map(
+          (_, i) =>
+            `<button class="carousel-dot${i === 0 ? " is-active" : ""}" type="button" data-dot="${i}" aria-label="Foto ${i + 1}"></button>`
+        )
+        .join("");
+    }
+  }
+
+  function initAboutPhotoCarousel() {
+    const track = document.getElementById("about-photo-track");
+    const prev = document.getElementById("about-photo-prev");
+    const next = document.getElementById("about-photo-next");
+    const dots = document.getElementById("about-photo-dots");
+    if (!track) return;
+
+    const step = () => track.clientWidth;
+
+    const updateDots = () => {
+      if (!dots) return;
+      const index = Math.round(track.scrollLeft / step());
+      dots.querySelectorAll(".carousel-dot").forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === index);
+      });
+    };
+
+    prev?.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+    next?.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+
+    dots?.querySelectorAll(".carousel-dot").forEach((dot) => {
+      dot.addEventListener("click", () => {
+        track.scrollTo({ left: Number(dot.getAttribute("data-dot")) * step(), behavior: "smooth" });
+      });
+    });
+
+    track.addEventListener("scroll", updateDots, { passive: true });
+  }
+
   function initCarousel() {
     const track = document.getElementById("video-track");
     const prev = document.getElementById("video-prev");
@@ -447,9 +499,11 @@
   renderHospitals();
   renderCurriculum();
   renderFindMe();
+  renderAboutPhotos();
   renderVideos();
   wireWhatsApp();
   wireInstagram();
+  initAboutPhotoCarousel();
   initCarousel();
   initMenu();
   initReveal();
