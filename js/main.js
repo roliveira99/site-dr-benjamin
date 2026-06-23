@@ -407,9 +407,11 @@
 
       if (href === "#inicio") {
         window.scrollTo({ top: 0, behavior: "smooth" });
+        setActiveNavLink("inicio");
       } else {
         if (href === "#curriculo") openCurriculumPanel();
         scrollToSection(target);
+        setActiveNavLink(href.slice(1));
       }
 
       history.pushState(null, "", href);
@@ -556,19 +558,35 @@
     }
   }
 
+  function getActiveSectionId(sections) {
+    if (!sections.length) return "";
+
+    const headerHeight = document.getElementById("site-header")?.offsetHeight || 80;
+    const triggerLine = headerHeight + 48;
+    let current = sections[0].id;
+
+    sections.forEach((sec) => {
+      if (sec.getBoundingClientRect().top <= triggerLine) {
+        current = sec.id;
+      }
+    });
+
+    return current;
+  }
+
+  function setActiveNavLink(sectionId) {
+    document.querySelectorAll(".site-nav a").forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === "#" + sectionId);
+    });
+  }
+
   function initNavHighlight() {
     const sections = [...document.querySelectorAll("main section[id]")];
     const links = [...document.querySelectorAll(".site-nav a")];
+    if (!sections.length || !links.length) return;
 
     const onScroll = () => {
-      const y = window.scrollY + getScrollOffset();
-      let current = sections[0]?.id;
-      sections.forEach((sec) => {
-        if (sec.offsetTop <= y) current = sec.id;
-      });
-      links.forEach((a) => {
-        a.classList.toggle("is-active", a.getAttribute("href") === "#" + current);
-      });
+      setActiveNavLink(getActiveSectionId(sections));
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
