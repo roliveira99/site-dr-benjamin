@@ -437,9 +437,7 @@ main {
   height: 76px;
   width: auto;
   display: block;
-  object-fit: contain;
   flex-shrink: 0;
-  border-radius: 8px;
 }
 
 .brand-mark {
