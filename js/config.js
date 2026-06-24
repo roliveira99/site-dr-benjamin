@@ -190,8 +190,6 @@ window.SITE_DR_BENJAMIN = {
       name: "Campus Uniespirito",
       venue: "Instituto Médico Dr. Sérgio Felipe de Oliveira",
       badge: "Consultório particular",
-      note:
-        "Consultório médico particular do Dr. Benjamin Ramos. Sempre verificar a disponibilidade antes do agendamento.",
       address: "Rua Paulo Orozimbo, 916",
       district: "Aclimação, São Paulo/SP",
       cep: "CEP 01535-001",

@@ -574,9 +574,11 @@ main {
 .brand-logo-image--header {
   width: 56px;
   height: 56px;
-  border: none;
+  padding: 2px;
+  border: 2.5px solid var(--gold);
   border-radius: 50%;
-  background: transparent;
+  background: var(--green-logo);
+  box-sizing: border-box;
 }
 
 .brand-logo-image--footer {
@@ -1726,8 +1728,9 @@ main {
 /* Footer */
 .site-footer {
   padding: 64px 0 32px;
-  background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 28%, var(--green-dark) 100%);
-  color: var(--text-on-dark);
+  background: var(--white);
+  color: var(--navy);
+  border-top: 1px solid var(--border);
 }
 
 .footer-inner {
@@ -1736,22 +1739,22 @@ main {
   justify-content: space-between;
   gap: 40px;
   padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
 }
 
 .footer-brand .brand-text strong {
-  color: var(--white);
+  color: var(--navy-dark);
 }
 
 .footer-brand .brand-text span {
-  color: var(--cream-gold);
+  color: var(--text-light);
 }
 
 .footer-brand p {
   margin: 14px 0 0;
   max-width: 36ch;
   font-size: 0.9375rem;
-  color: var(--muted-on-dark);
+  color: var(--text-light);
 }
 
 .footer-links {
@@ -1761,23 +1764,23 @@ main {
 }
 
 .footer-links a {
-  color: var(--cream-gold);
+  color: var(--navy);
   text-decoration: none;
   font-size: 0.9375rem;
   transition: color 0.2s;
 }
 
 .footer-links a:hover {
-  color: var(--white);
+  color: var(--gold-dark);
 }
 
 .footer-phone {
   font-weight: 600;
-  color: var(--gold-light);
+  color: var(--gold-dark);
 }
 
 .footer-phone span {
-  color: var(--white);
+  color: var(--navy);
 }
 
 .footer-disclaimer {
@@ -1785,16 +1788,16 @@ main {
   margin: 28px auto 0;
   max-width: 56ch;
   font-size: 0.8125rem;
-  color: var(--cream-gold);
-  opacity: 0.9;
+  color: var(--text-light);
+  opacity: 1;
 }
 
 .footer-copy {
   text-align: center;
   margin: 16px 0 0;
   font-size: 0.8125rem;
-  color: var(--cream-gold);
-  opacity: 0.75;
+  color: var(--text-light);
+  opacity: 0.85;
 }
 
 /* WhatsApp float */
