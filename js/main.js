@@ -54,7 +54,7 @@
     });
 
     document.querySelectorAll("[data-doctor-display-name]").forEach((el) => {
-      el.textContent = cfg.doctor?.displayName || "Benjamin Ramos de Andrade Neto";
+      el.textContent = cfg.doctor?.displayName || "Dr. Benjamin Ramos de Andrade Neto";
     });
 
     document.querySelectorAll("[data-doctor-subtitle]").forEach((el) => {
@@ -64,6 +64,27 @@
     document.querySelectorAll("[data-doctor-tagline]").forEach((el) => {
       el.textContent = cfg.doctor?.tagline || "";
     });
+
+    const heroHighlights = document.getElementById("hero-highlights");
+    if (heroHighlights && cfg.doctor?.heroHighlights?.length) {
+      heroHighlights.innerHTML = cfg.doctor.heroHighlights
+        .map((line) => "<p>" + escapeHtml(line) + "</p>")
+        .join("");
+    }
+
+    const aboutContent = document.getElementById("about-content");
+    if (aboutContent && cfg.about) {
+      const paragraphs = (cfg.about.paragraphs || [])
+        .map((text) => "<p>" + escapeHtml(text) + "</p>")
+        .join("");
+      const consultorio = cfg.about.consultorio;
+      const consultorioHtml = consultorio
+        ? `<h3 class="about-subtitle">${escapeHtml(consultorio.title)}</h3>${(consultorio.paragraphs || [])
+            .map((text) => "<p>" + escapeHtml(text) + "</p>")
+            .join("")}`
+        : "";
+      aboutContent.innerHTML = paragraphs + consultorioHtml;
+    }
 
     document.querySelectorAll("[data-doctor-title]").forEach((el) => {
       el.textContent = cfg.doctor?.title || "";
@@ -95,7 +116,30 @@
     const groups = cfg.procedures?.groups || [];
     if (!groups.length) return;
 
-    grid.innerHTML = groups
+    const modalityIcons = {
+      robotica:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h3a2 2 0 110 4h-1.09A5.99 5.99 0 0117 15.5V17h2v2h-2v2h-2v-2H9v2H7v-2H5v-2h2v-1.5A5.99 5.99 0 0110.09 11H9a2 2 0 110-4h3V5.73A2 2 0 0112 2zm-2 9a4 4 0 004 4v.5H10V15a4 4 0 00-2-3.87V11z"/></svg>',
+      laser:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.2 4.2L17 7l-3.8 1.8L12 13l-1.2-4.2L7 7l3.8-1.8L12 2zm-6 9l.9 2.1L9 14l-2.1.9L6 17l-.9-2.1L3 14l2.1-.9L6 11zm12 0l.9 2.1L21 14l-2.1.9L18 17l-.9-2.1L15 14l2.1-.9L18 11zM12 15l2.5 6h-5L12 15z"/></svg>',
+      ultrassom:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v12H4V6zm2 2v8h12V8H6zm2 2h8v4H8v-4zm1 1v2h6v-2H9z"/></svg>',
+      videolaparoscopia:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5h9v4H9v10H5V5zm11 0h3v14h-3V5zm-7 2v6h3V7H9z"/></svg>',
+      botox:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 4h8v2h1a3 3 0 013 3v8a3 3 0 01-3 3H7a3 3 0 01-3-3V9a3 3 0 013-3h1V4zm2 4H7a1 1 0 00-1 1v8a1 1 0 001 1h10a1 1 0 001-1V9a1 1 0 00-1-1h-3v1h-4V8z"/></svg>',
+    };
+
+    const modalities = (cfg.procedures?.modalities || [])
+      .map(
+        (item) => `
+      <div class="procedure-modality reveal">
+        <span class="procedure-modality-icon">${modalityIcons[item.id] || modalityIcons.videolaparoscopia}</span>
+        <span class="procedure-modality-label">${escapeHtml(item.label)}</span>
+      </div>`
+      )
+      .join("");
+
+    const panels = groups
       .map(
         (group) => `
       <article class="procedure-panel reveal">
@@ -110,6 +154,10 @@
       </article>`
       )
       .join("");
+
+    grid.innerHTML = `
+      <div class="procedure-modalities">${modalities}</div>
+      <div class="procedure-panels">${panels}</div>`;
 
     grid.querySelectorAll(".reveal").forEach((el) => observeReveal(el));
   }
@@ -129,9 +177,21 @@
       )
       .join("");
 
+    const treatments = (mtc.treatments || [])
+      .map((item, index) => `<li><span>${index + 1}.</span> ${escapeHtml(item)}</li>`)
+      .join("");
+
+    const treatmentsBlock = treatments
+      ? `<div class="mtc-treatments reveal">
+          <h3>${escapeHtml(mtc.treatmentsTitle || "Tratamentos principais")}</h3>
+          <ol class="mtc-treatments-list">${treatments}</ol>
+        </div>`
+      : "";
+
     section.innerHTML = `
       <p class="mtc-lead reveal">${escapeHtml(mtc.lead)}</p>
       <div class="mtc-grid">${cards}</div>
+      ${treatmentsBlock}
       <div class="mtc-cta reveal">
         <a class="btn btn-whatsapp" href="${buildWhatsAppUrl("Olá! Gostaria de agendar consulta de Medicina Chinesa e acupuntura no consultório particular.")}" target="_blank" rel="noopener noreferrer">Agendar consultório</a>
       </div>`;
@@ -173,14 +233,6 @@
           ? `<p class="hospital-note">${escapeHtml(h.note)}</p>`
           : "";
 
-        const schedule =
-          h.schedule?.length
-            ? `<div class="hospital-schedule">
-            <h4>Horários de ambulatório</h4>
-            <ul>${h.schedule.map((slot) => `<li>${escapeHtml(slot)}</li>`).join("")}</ul>
-          </div>`
-            : "";
-
         return `
       <article class="hospital-card reveal">
         <div class="hospital-card-header">
@@ -189,7 +241,6 @@
         </div>
         <div class="hospital-card-body">
           ${note}
-          ${schedule}
           <address class="hospital-address">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>

@@ -18,24 +18,42 @@ window.SITE_DR_BENJAMIN = {
   defaultMessage:
     "Olá! Gostaria de agendar uma consulta com o Dr. Benjamin Ramos de Andrade Neto.",
   doctor: {
-    displayName: "Benjamin Ramos de Andrade Neto",
+    displayName: "Dr. Benjamin Ramos de Andrade Neto",
     fullName: "Dr. Benjamin Ramos de Andrade Neto",
     shortName: "Dr. Benjamin Ramos",
     crm: "CRM-SP 219782",
     rqe: [
-      "RQE 90916 — Cirurgia Geral (SP)",
-      "RQE 90917 — Coloproctologia (SP)",
+      "RQE Cirurgia Geral 90916",
+      "RQE Coloproctologia 90917",
+      "RQE Acupuntura 133999",
     ],
-    title: "Cirurgião Geral e Coloproctologista",
+    title: "Médico Cirurgião Geral e Coloproctologista",
     subtitle: "Especialista em Medicina Chinesa e Acupuntura",
     city: "São Paulo · SP",
-    tagline: "Medicina Chinesa no consultório · Cirurgia minimamente invasiva nos hospitais",
+    heroHighlights: [
+      "Atendimento em Consultório Particular e Hospitais de São Paulo.",
+      "Foco em Cirurgia Minimamente Invasiva e Robótica.",
+      "Na Medicina Chinesa, foco em Acupuntura e Fitoterapia Chinesa.",
+    ],
     bio:
       "Especialista em Medicina Chinesa, acupuntura e fitoterapia no consultório particular, no Campus Uniespirito (Aclimação). Nos hospitais, atua em coloproctologia com cirurgias minimamente invasivas, laser de CO₂, laser de diodo e cirurgia robótica.",
   },
+  about: {
+    paragraphs: [
+      "Dr. Benjamin Ramos de Andrade Neto é médico graduado pela UFC, em 2012, com residência em Cirurgia Geral, concluída em 2015 e Coloproctologia, concluída em 2018. Atua em São Paulo desde 2021, no Núcleo de Tumores Colorretais do AC Camargo e em hospitais de referência da cidade.",
+      "Atualmente complementa a atuação hospitalar com Medicina Tradicional Chinesa, com foco no equilíbrio do Yin e Yang, de forma a gerar melhora funcional, com individualização do tratamento, considerando a singularidade de cada paciente.",
+    ],
+    consultorio: {
+      title: "Consultório Particular",
+      paragraphs: [
+        "Busca de abordagem com integralidade e entendimento do paciente.",
+        "Foco em Medicina Chinesa e Acupuntura. Tratamentos cirúrgicos também são avaliados caso seja necessário.",
+      ],
+    },
+  },
   chineseMedicine: {
     lead:
-      "Diagnóstico pela MTC, acupuntura e fitoterapia para dor, estresse e recuperação funcional. Atendimento no consultório particular do Dr. Benjamin Ramos, no Campus Uniespirito — Instituto Médico Dr. Sérgio Felipe de Oliveira, Rua Paulo Orozimbo, 916, Aclimação, São Paulo.",
+      "Diagnóstico pela MTC, fitoterapia para sanar desarmonias de excesso ou deficiência, visando equilíbrio Yin e Yang, e acupuntura para melhorar dor, aguda ou crônica, e regular fluxo de Qi (energia vital) em meridianos corporais. Atendimento no consultório particular do Dr. Benjamin Ramos, no Campus Uniespirito — Instituto Médico Dr. Sérgio Felipe de Oliveira, Rua Paulo Orozimbo, 916, Aclimação, São Paulo.",
     practices: [
       {
         title: "Medicina Tradicional Chinesa",
@@ -45,18 +63,33 @@ window.SITE_DR_BENJAMIN = {
       {
         title: "Acupuntura",
         description:
-          "Manejo da dor, estresse, função intestinal e recuperação pós-operatória.",
+          "É considerada uma técnica minimamente invasiva. Para manejo da dor, estresse, função intestinal e recuperação pós-operatória.",
       },
       {
         title: "Fitoterapia",
         description:
-          "Prescrição de fitoterápicos com base na Medicina Chinesa, associada à acupuntura quando indicado.",
+          "Prescrição de fitoterápicos com base na Medicina Chinesa, podendo ser associada à acupuntura.",
       },
       {
         title: "Moxabustão e ventosas",
         description:
           "Recursos complementares da MTC para circulação, tensão muscular e bem-estar geral.",
       },
+    ],
+    treatmentsTitle:
+      "Tratamentos principais realizados pela MTC no consultório do Dr. Benjamin Ramos",
+    treatments: [
+      "Alívio de dor — redução da dor, melhora na performance física, da qualidade de vida e redução do consumo de analgésicos",
+      "Redução de sintomas gastrintestinais — inclusive náuseas e vômitos induzidos por quimioterapia, também constipação",
+      "Diminuição de fadiga",
+      "Manejo da ansiedade",
+      "Melhora de ondas de calor",
+      "Tratamento de distúrbios do sono e melhora de qualidade do sono",
+      "Tratamento da boca seca e secura de mucosas",
+      "Melhora de sintomas relacionados à menopausa",
+      "Controle de dor músculo-esquelética crônica",
+      "Diminuição de consumo de opioides e medicamentos para dor neuropática — minimizando risco de adicção",
+      "Artralgias (dor nos joelhos, dor no ombro, dor em articulações de braços e pernas etc.); dor lombar e cervical",
     ],
   },
   curriculum: {
@@ -72,7 +105,7 @@ window.SITE_DR_BENJAMIN = {
         ],
       },
       {
-        title: "Atuação atual em São Paulo",
+        title: "Atuação em São Paulo",
         items: [
           "Hospital AC Camargo Cancer Center — Cirurgião Colorretal, Equipe Núcleo de Tumores Colorretais (desde 2022)",
           "Hospital Beneficência Portuguesa — Cirurgião Colorretal, Corpo Clínico (desde 2023)",
@@ -81,25 +114,12 @@ window.SITE_DR_BENJAMIN = {
         ],
       },
       {
-        title: "Experiência profissional (seleção)",
-        items: [
-          "Hospital Geral de Fortaleza — Cirurgião Geral da emergência e preceptor da residência (2015–2017)",
-          "Hospital Geral do Exército — Cirurgião Geral, consultório e cirurgias eletivas (2015)",
-          "Santa Casa de Misericórdia de Fortaleza — Cirurgião Coloproctologista e preceptor (2018)",
-          "Hospital Regional Unimed — Cirurgião Geral e Coloproctologista (2018–2020)",
-          "Hospital Monte Klinikum — Cirurgião colorretal, parecer e colonoscopias (2020)",
-          "Hospital 9 de Julho — atuação em São Paulo (2021)",
-          "Hospital Municipal de Barueri Dr. Francisco Moran — Pronto-socorro (2021)",
-          "Hospital Cruz Azul — Pareceres, visitas em enfermaria e UTI cirúrgica (2021)",
-        ],
-      },
-      {
         title: "Registros profissionais",
         items: [
-          "CRM-CE 14092 (2012)",
-          "RQE Cirurgia Geral — CE 7093 (2015) · SP 90916 (2015)",
-          "RQE Coloproctologia — CE 9416 (2019) · SP 90917 (2019)",
-          "CRM-SP 219782 (2021)",
+          "CRM-SP 219782",
+          "RQE Cirurgia Geral 90916",
+          "RQE Coloproctologia 90917",
+          "RQE Acupuntura 133999",
         ],
       },
     ],
@@ -250,9 +270,30 @@ window.SITE_DR_BENJAMIN = {
     },
   ],
   procedures: {
+    modalities: [
+      { id: "robotica", label: "Cirurgia Robótica" },
+      { id: "laser", label: "Laser de Diodo e CO₂" },
+      { id: "ultrassom", label: "Cirurgia de hemorroida com Ultrassom" },
+      { id: "videolaparoscopia", label: "Videolaparoscopia" },
+      { id: "botox", label: "Botox para fissura e hipertonia" },
+    ],
     groups: [
       {
         index: "01",
+        title: "Cirurgia Robótica",
+        items: [
+          "Colectomia robótica",
+          "Retossigmoidectomia robótica",
+          "Cirurgia colorretal minimamente invasiva com plataforma robótica",
+          "Procedimentos coloproctológicos com maior precisão e recuperação facilitada",
+          "RISS — Robotic Intracorporeal Single Stapler Anastomosis",
+          "Hernioplastia robótica",
+          "Correção de diástase de músculo reto robótica",
+        ],
+        whatsappMsg: "Olá! Gostaria de informações sobre cirurgia robótica.",
+      },
+      {
+        index: "02",
         title: "Cirurgia minimamente invasiva e videolaparoscopia",
         items: [
           "Retossigmoidectomia videolaparoscópica",
@@ -260,42 +301,33 @@ window.SITE_DR_BENJAMIN = {
           "Colecistectomia videolaparoscópica",
           "Apendicectomia por videolaparoscopia",
           "Hernioplastia por videolaparoscopia",
-          "Hemorroidopexia grampeada (PPH)",
-          "Desarterialização hemorroidária com doppler (THD)",
-          "Correção grampeada de retocele (TRREMS)",
-          "Tratamento cirúrgico de prolapso oculto do reto (APEX Technique)",
         ],
         whatsappMsg:
           "Olá! Gostaria de informações sobre cirurgia minimamente invasiva e videolaparoscopia.",
       },
       {
-        index: "02",
-        title: "Cirurgias a laser de CO₂ e laser de diodo",
+        index: "03",
+        title: "Cirurgias com laser de CO₂ e laser de diodo",
         items: [
           "Fístula anal com laser (VAAFT com laser)",
           "Tratamento de cisto pilonidal com laser (EPSiT com laser)",
-          "Hemorroida com ultrassom (sem corte)",
           "Coagulação de hemorroidas com laser de diodo",
           "Tratamento de lesões anorretais com laser de CO₂",
           "Procedimentos anorretais minimamente invasivos com energia a laser",
+          "Tratamento de fissura com laser",
         ],
         whatsappMsg: "Olá! Gostaria de informações sobre cirurgias a laser de CO₂ e diodo.",
-      },
-      {
-        index: "03",
-        title: "Cirurgia robótica",
-        items: [
-          "Colectomia robótica",
-          "Retossigmoidectomia robótica",
-          "Cirurgia colorretal minimamente invasiva com plataforma robótica",
-          "Procedimentos coloproctológicos com maior precisão e recuperação facilitada",
-        ],
-        whatsappMsg: "Olá! Gostaria de informações sobre cirurgia robótica.",
       },
       {
         index: "04",
         title: "Procedimentos anorretais avançados",
         items: [
+          "Hemorroida com ultrassom (sem corte)",
+          "Hemorroidopexia grampeada (PPH)",
+          "Desarterialização hemorroidária com doppler (THD)",
+          "Correção grampeada de retocele (TRREMS)",
+          "Tratamento cirúrgico de prolapso oculto do reto (APEX Technique)",
+          "Fissurectomia com botox",
           "Drenagem de abscesso anorretal",
           "Fistulotomia e fistulectomia anal",
           "Técnicas poupadoras de esfíncter para tratamento de fístula anal",
