@@ -575,10 +575,11 @@ main {
   width: 56px;
   height: 56px;
   padding: 0;
-  border: none;
+  border: 2px solid var(--gold);
   border-radius: 50%;
-  background: transparent;
+  background: var(--green-logo);
   object-fit: cover;
+  box-sizing: border-box;
 }
 
 .brand-logo-image--footer {
