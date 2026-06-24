@@ -169,6 +169,29 @@ main {
   line-height: 1.25;
 }
 
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-intro {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hero-logo-full {
+  width: min(280px, 100%);
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(197, 160, 89, 0.55);
+  box-shadow: var(--shadow-lg);
+}
+
 .hero-title {
   margin: 0 0 10px;
   font-size: clamp(1rem, 2.1vw, 1.2rem);
@@ -794,9 +817,26 @@ main {
 .hero-inner {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
-  align-items: center;
+  grid-template-areas:
+    "intro visual"
+    "content visual";
+  row-gap: 20px;
+  column-gap: 56px;
+  align-items: start;
   position: relative;
+}
+
+.hero-intro {
+  grid-area: intro;
+}
+
+.hero-content {
+  grid-area: content;
+}
+
+.hero-visual {
+  grid-area: visual;
+  align-self: center;
 }
 
 .hero-badge {
@@ -870,20 +910,8 @@ main {
 
 .hero-visual {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 28px;
-}
-
-.hero-logo-full {
-  width: min(320px, 92%);
-  height: auto;
-  display: block;
-  padding: 20px 24px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.96);
-  border: 1.5px solid rgba(197, 160, 89, 0.55);
-  box-shadow: var(--shadow-lg);
 }
 
 .hero-photo-wrap {
@@ -1844,6 +1872,34 @@ main {
   .about-grid,
   .procedure-panels {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "visual"
+      "content";
+    row-gap: 24px;
+  }
+
+  .hero-intro {
+    justify-content: center;
+  }
+
+  .hero-photo-wrap {
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .hero-logo-full {
+    width: min(240px, 88%);
+    padding: 14px 16px;
+  }
+
+  .hero-content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-rqe {
+    justify-content: center;
   }
 
   .booking-panel {
@@ -1878,20 +1934,6 @@ main {
 
   .header-actions .btn-ghost {
     display: none;
-  }
-
-  .hero-visual {
-    order: -1;
-  }
-
-  .hero-photo-wrap {
-    max-width: 320px;
-    margin-inline: auto;
-  }
-
-  .hero-logo-full {
-    width: min(280px, 88%);
-    padding: 16px 18px;
   }
 
   .brand-logo-image--header {
