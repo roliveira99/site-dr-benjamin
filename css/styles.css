@@ -571,27 +571,15 @@ main {
   background: var(--white);
 }
 
-.brand-logo-wrap {
-  display: block;
+.brand-logo-image--header {
   width: 56px;
   height: 56px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 2px solid var(--gold);
-  background: var(--green-logo);
-  overflow: hidden;
-}
-
-.brand-logo-image--header {
-  width: 100%;
-  height: 100%;
   padding: 0;
-  border: none;
-  border-radius: 0;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
   background: var(--green-logo);
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  transform: scale(1.12);
   box-sizing: border-box;
 }
 
@@ -1953,13 +1941,9 @@ main {
     display: none;
   }
 
-  .brand-logo-wrap {
+  .brand-logo-image--header {
     width: 48px;
     height: 48px;
-  }
-
-  .brand-logo-image--header {
-    transform: scale(1.12);
   }
 }
 
