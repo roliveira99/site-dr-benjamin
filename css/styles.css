@@ -574,11 +574,11 @@ main {
 .brand-logo-image--header {
   width: 56px;
   height: 56px;
-  padding: 2px;
-  border: 2.5px solid var(--gold);
+  padding: 0;
+  border: none;
   border-radius: 50%;
-  background: var(--green-logo);
-  box-sizing: border-box;
+  background: transparent;
+  object-fit: cover;
 }
 
 .brand-logo-image--footer {
