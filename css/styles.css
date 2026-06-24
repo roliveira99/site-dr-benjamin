@@ -575,10 +575,10 @@ main {
   width: 56px;
   height: 56px;
   padding: 0;
-  border: 2px solid var(--gold);
+  border: none;
   border-radius: 50%;
   background: var(--green-logo);
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   box-sizing: border-box;
 }
