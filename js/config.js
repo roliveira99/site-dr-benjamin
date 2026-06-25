@@ -3,8 +3,8 @@
  * Currículo extraído de: Currículo Benjamin - atualizado 2023.pdf
  */
 window.SITE_DR_BENJAMIN = {
-  /** URL pública do site (preencher após publicar no Cloudflare Pages) */
-  siteUrl: "",
+  /** URL pública do site */
+  siteUrl: "https://drbenjaminramos.com.br",
   /** Analytics — preencher após criar as contas (ver guia de publicação) */
   analytics: {
     cloudflareToken: "",
