@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Configuração central — Site Dr. Benjamin Ramos
  * Currículo extraído de: Currículo Benjamin - atualizado 2023.pdf
  */
@@ -7,8 +7,8 @@ window.SITE_DR_BENJAMIN = {
   siteUrl: "https://drbenjaminramos.com.br",
   /** Analytics — preencher após criar as contas (ver guia de publicação) */
   analytics: {
-    cloudflareToken: "",
-    clarityProjectId: "",
+    cloudflareToken: "SEU_TOKEN",
+    clarityProjectId: "SEU_ID_CLARITY",
   },
   whatsapp: "5511916606602",
   whatsappDisplay: "(11) 91660-6602",

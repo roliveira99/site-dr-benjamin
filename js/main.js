@@ -576,33 +576,76 @@
     document.querySelectorAll(".reveal").forEach(observeReveal);
   }
 
-  function initAnalytics() {
-    const analytics = cfg.analytics || {};
-    const cfToken = String(analytics.cloudflareToken || "").trim();
-    const clarityId = String(analytics.clarityProjectId || "").trim();
+  function trackMetric(eventName, tags) {
+    if (typeof window.clarity !== "function") return;
 
-    if (cfToken) {
-      const script = document.createElement("script");
-      script.defer = true;
-      script.src = "https://static.cloudflareinsights.com/beacon.min.js";
-      script.setAttribute("data-cf-beacon", JSON.stringify({ token: cfToken }));
-      document.head.appendChild(script);
+    if (tags) {
+      Object.entries(tags).forEach(([key, value]) => {
+        if (value) window.clarity("set", key, String(value));
+      });
     }
 
-    if (clarityId) {
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", clarityId);
-    }
+    window.clarity("event", eventName);
+  }
+
+  function getClickSection(el) {
+    return el.closest("section[id]")?.id || el.closest("header")?.id || "global";
+  }
+
+  function initMetrics() {
+    document
+      .querySelectorAll("[data-whatsapp-agendar], [data-whatsapp-msg], [data-whatsapp-hospital]")
+      .forEach((el) => {
+        el.addEventListener("click", () => {
+          trackMetric("click_whatsapp", {
+            section: getClickSection(el),
+            cta:
+              el.getAttribute("data-whatsapp-hospital") ||
+              el.getAttribute("aria-label") ||
+              (el.textContent || "").trim().slice(0, 48) ||
+              "whatsapp",
+          });
+        });
+      });
+
+    document.querySelectorAll("[data-instagram-link]").forEach((el) => {
+      el.addEventListener("click", () => {
+        trackMetric("click_instagram", { section: getClickSection(el) });
+      });
+    });
+
+    document.querySelectorAll(".site-nav a[href^='#']").forEach((el) => {
+      el.addEventListener("click", () => {
+        trackMetric("nav_click", { target: (el.getAttribute("href") || "").replace("#", "") });
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const mapLink = event.target.closest(".hospital-card .map-link");
+      if (!mapLink) return;
+
+      const hospital =
+        mapLink.closest(".hospital-card")?.querySelector("h3")?.textContent?.trim() || "";
+      trackMetric("click_map", { hospital });
+    });
+
+    const seenSections = new Set();
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.35) return;
+          const sectionId = entry.target.id;
+          if (!sectionId || seenSections.has(sectionId)) return;
+          seenSections.add(sectionId);
+          trackMetric("view_section", { section: sectionId });
+        });
+      },
+      { threshold: [0.35] }
+    );
+
+    document.querySelectorAll("main section[id]").forEach((section) => {
+      sectionObserver.observe(section);
+    });
   }
 
   function getActiveSectionId(sections) {
@@ -663,7 +706,6 @@
     syncActiveLink();
   }
 
-  initAnalytics();
   renderProcedures();
   renderChineseMedicine();
   renderHospitals();
@@ -673,6 +715,7 @@
   renderVideos();
   wireWhatsApp();
   wireInstagram();
+  initMetrics();
   initAboutPhotoCarousel();
   initCarousel();
   initAnchorNavigation();
