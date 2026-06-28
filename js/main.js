@@ -686,11 +686,15 @@
         "[data-whatsapp-agendar], [data-whatsapp-msg], [data-whatsapp-hospital], .whatsapp-float"
       );
       if (whatsappEl) {
-        trackEvent(getWhatsAppEventName(whatsappEl), {
+        const eventName = getWhatsAppEventName(whatsappEl);
+        const tags = {
           section: getClickSection(whatsappEl),
           label: getTrackLabel(whatsappEl),
           hospital: whatsappEl.getAttribute("data-whatsapp-hospital") || "",
-        });
+          button: eventName,
+        };
+        trackEvent(eventName, tags);
+        trackEvent("whatsapp_click", tags);
         return;
       }
 
