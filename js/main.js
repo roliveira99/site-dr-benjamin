@@ -253,7 +253,7 @@
               ${escapeHtml(h.cep)}
             </span>
           </address>
-          <a class="btn btn-outline btn-sm-full map-link" href="${escapeHtml(h.mapUrl || "#")}" target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-outline btn-sm-full map-link" href="${escapeHtml(h.mapUrl || "#")}" target="_blank" rel="noopener noreferrer" data-track="map_${escapeHtml(h.id || h.name)}">
             Ver no Google Maps
           </a>
           <div class="hospital-divider"></div>
@@ -295,7 +295,7 @@
           <span class="findme-icon findme-icon--wa" aria-hidden="true">WA</span>
           <h3>${escapeHtml(item.label)}</h3>
           <p>${escapeHtml(item.value)}</p>
-          <a class="btn btn-whatsapp btn-sm-full" href="${buildWhatsAppUrl(item.message)}" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+          <a class="btn btn-whatsapp btn-sm-full" href="${buildWhatsAppUrl(item.message)}" target="_blank" rel="noopener noreferrer" data-track="contato_whatsapp">Chamar no WhatsApp</a>
         </article>`;
         }
 
@@ -577,16 +577,29 @@
     document.querySelectorAll(".reveal").forEach(observeReveal);
   }
 
-  function trackMetric(eventName, tags) {
+  function claritySlug(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "")
+      .slice(0, 64);
+  }
+
+  function trackEvent(eventName, tags) {
     if (typeof window.clarity !== "function") return;
+
+    const name = claritySlug(eventName);
+    if (!name) return;
 
     if (tags) {
       Object.entries(tags).forEach(([key, value]) => {
-        if (value) window.clarity("set", key, String(value));
+        if (value) window.clarity("set", claritySlug(key), String(value));
       });
     }
 
-    window.clarity("event", eventName);
+    window.clarity("event", name);
   }
 
   function getClickSection(el) {
@@ -602,30 +615,70 @@
     );
   }
 
-  function getClickDestination(el) {
-    const href = el.getAttribute("href") || "";
-    if (!href || href === "#") return "whatsapp";
-    if (href.startsWith("#")) return href.slice(1);
-    if (href.startsWith("http")) return "external";
-    return href;
+  function getWhatsAppEventName(el) {
+    const track = el.getAttribute("data-track");
+    if (track) {
+      if (track.startsWith("whatsapp_")) return track;
+      if (track.endsWith("_whatsapp")) {
+        return "whatsapp_" + claritySlug(track.replace(/_whatsapp$/, ""));
+      }
+      return "whatsapp_" + claritySlug(track);
+    }
+
+    if (el.classList.contains("whatsapp-float")) return "whatsapp_float";
+    if (el.closest(".contact-bar")) return "whatsapp_contact_bar";
+    if (el.closest(".site-footer")) return "whatsapp_footer";
+    if (el.closest("#contato")) return "whatsapp_contato";
+
+    return "whatsapp_" + claritySlug(getClickSection(el));
+  }
+
+  function getInstagramEventName(el) {
+    const track = el.getAttribute("data-track");
+    if (track) {
+      if (track.startsWith("instagram_")) return track;
+      return "instagram_" + claritySlug(track);
+    }
+
+    if (el.closest(".site-header")) return "instagram_header";
+    if (el.closest(".contact-bar")) return "instagram_contact_bar";
+    if (el.closest("#videos")) return "instagram_videos";
+    if (el.closest(".site-footer")) return "instagram_footer";
+
+    return "instagram_" + claritySlug(getClickSection(el));
+  }
+
+  function getButtonEventName(el) {
+    const track = el.getAttribute("data-track");
+    if (track) {
+      if (track.startsWith("btn_")) return track;
+      return "btn_" + claritySlug(track);
+    }
+
+    return "btn_" + claritySlug(getClickSection(el) + "_" + (el.textContent || "botao"));
   }
 
   function initMetrics() {
     document.addEventListener("click", (event) => {
       const navLink = event.target.closest(".site-nav a[href^='#']");
       if (navLink) {
-        trackMetric("nav_click", {
-          target: (navLink.getAttribute("href") || "").replace("#", ""),
-          cta: getTrackLabel(navLink),
+        const target = (navLink.getAttribute("href") || "").replace("#", "");
+        trackEvent("nav_" + claritySlug(target), {
+          section: target,
+          label: (navLink.textContent || "").trim(),
         });
         return;
       }
 
       const mapLink = event.target.closest(".hospital-card .map-link");
       if (mapLink) {
+        const track = mapLink.getAttribute("data-track") || "";
         const hospital =
           mapLink.closest(".hospital-card")?.querySelector("h3")?.textContent?.trim() || "";
-        trackMetric("click_map", { hospital, section: getClickSection(mapLink) });
+        const eventName = track.startsWith("map_")
+          ? track
+          : "map_" + claritySlug(track.replace(/^map_/, "") || hospital);
+        trackEvent(eventName, { hospital, section: getClickSection(mapLink) });
         return;
       }
 
@@ -633,9 +686,9 @@
         "[data-whatsapp-agendar], [data-whatsapp-msg], [data-whatsapp-hospital], .whatsapp-float"
       );
       if (whatsappEl) {
-        trackMetric("click_whatsapp", {
+        trackEvent(getWhatsAppEventName(whatsappEl), {
           section: getClickSection(whatsappEl),
-          cta: getTrackLabel(whatsappEl),
+          label: getTrackLabel(whatsappEl),
           hospital: whatsappEl.getAttribute("data-whatsapp-hospital") || "",
         });
         return;
@@ -643,26 +696,18 @@
 
       const instagramEl = event.target.closest("[data-instagram-link]");
       if (instagramEl) {
-        trackMetric("click_instagram", {
+        trackEvent(getInstagramEventName(instagramEl), {
           section: getClickSection(instagramEl),
-          cta: getTrackLabel(instagramEl),
+          label: getTrackLabel(instagramEl),
         });
         return;
       }
 
       const btn = event.target.closest("a.btn, button.btn");
       if (btn) {
-        trackMetric("click_button", {
+        trackEvent(getButtonEventName(btn), {
           section: getClickSection(btn),
-          cta: getTrackLabel(btn),
-          destination: getClickDestination(btn),
-          type: btn.classList.contains("btn-primary")
-            ? "primary"
-            : btn.classList.contains("btn-outline")
-              ? "outline"
-              : btn.classList.contains("btn-whatsapp")
-                ? "whatsapp"
-                : "other",
+          label: (btn.textContent || "").trim().slice(0, 48),
         });
       }
     });
@@ -675,7 +720,7 @@
           const sectionId = entry.target.id;
           if (!sectionId || seenSections.has(sectionId)) return;
           seenSections.add(sectionId);
-          trackMetric("view_section", { section: sectionId });
+          trackEvent("view_" + claritySlug(sectionId), { section: sectionId });
         });
       },
       { threshold: [0.35] }
